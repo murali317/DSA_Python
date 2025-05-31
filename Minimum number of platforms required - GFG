@@ -1,4 +1,4 @@
-class Solution:    
+class Solution:   
     def minimumPlatform(self,arr,dep):
         # INTUITION - First, sort both the arrival and departure arrays independently — this lets you process the day's events in the right time order.
         # Use two pointers to simulate the timeline. When a train arrives before another departs,

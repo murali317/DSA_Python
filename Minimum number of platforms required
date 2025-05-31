@@ -1,0 +1,23 @@
+class Solution:    
+    def minimumPlatform(self,arr,dep):
+        # INTUITION - First, sort both the arrival and departure arrays independently — this lets you process the day's events in the right time order.
+        # Use two pointers to simulate the timeline. When a train arrives before another departs,
+        # you need an extra platform. When a train departs, you free one. 
+        # Track the max platforms needed at any time
+
+        arr.sort()
+        dep.sort()
+        c = 1
+        p, q = 1, 0
+        max_platforms = 1 # max trains that can fit if arrived at same time
+        # z = list(zip(arr, dep))
+        while p < len(arr) and q < len(arr):
+            if arr[p] <= dep[q]:
+                c += 1
+                p += 1
+            else:
+                c -= 1
+                q += 1
+            max_platforms = max(max_platforms, c)
+        return max_platforms
+        

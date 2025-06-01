@@ -1,0 +1,14 @@
+## PYTHON
+class Solution:
+    def fractionalknapsack(self, val, wt, capacity):
+        z = list(zip(val, wt))
+        z.sort(key = lambda x: x[0]/x[1], reverse = True) # Sort by value/weight ratio in descending order
+        res = 0.0 # ensures that the result is a float and avoids accidental integer division or formatting issues.
+        for i in z:
+            if i[1] <= capacity: # consider <= as it is possible.
+                res += i[0]
+                capacity -= i[1] 
+            else:
+                res += (i[0] / i[1]) * capacity
+                break
+        return float(f"{res:.6f}") # finally convert it to float instead of returning str

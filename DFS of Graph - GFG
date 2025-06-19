@@ -35,17 +35,17 @@ class Solution:
     
     #Function to return a list containing the DFS traversal of the graph.
     def dfs(self, adj):
-        # ITERATIVE DFS APPROACH
+        # ITERATIVE DFS APPROACH USING STACK
         # INTUITION - add to stack, then pop from it, check if not present in visited set, add to result.
         # time - O(V+E) - DFS touches each node once and then its neighbours.
         # space - O(V) - all holds upto V only.
+        
         stack = [0]
         visited = set()
         res = [] 
         # res.append(0)
         # visited.add(0)
-
-        # we will depend on stack to add and pop over the traversal, so until stack is not empty...
+        
         while stack:
             node = stack.pop()
             if node not in visited: # visit when you pop for proper DFS
@@ -55,3 +55,20 @@ class Solution:
                 if i not in visited: 
                     stack.append(i) # before ading to stack to pop next, first check if its not present in visited.
         return res
+        
+        # RECURSIVE APPROACH
+        # time - O(V+E)
+        # space - O(V) for visited, O(H) for recursion stack where H is depth could go upto V in W.C
+        visited = set()
+        res = []
+        def recursive_dfs(node):
+            if node not in visited:
+                visited.add(node)
+                res.append(node)
+            for neighbour in adj[node]:
+                if neighbour not in visited:
+                    recursive_dfs(neighbour)
+            
+        recursive_dfs(0)
+        return res
+         

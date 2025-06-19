@@ -36,21 +36,22 @@ class Solution:
     #Function to return a list containing the DFS traversal of the graph.
     def dfs(self, adj):
         # ITERATIVE DFS APPROACH
+        # INTUITION - add to stack, then pop from it, check if not present in visited set, add to result.
+        # time - O(V+E) - DFS touches each node once and then its neighbours.
+        # space - O(V) - all holds upto V only.
         stack = [0]
         visited = set()
         res = [] 
         # res.append(0)
         # visited.add(0)
-        
+
+        # we will depend on stack to add and pop over the traversal, so until stack is not empty...
         while stack:
             node = stack.pop()
             if node not in visited: # visit when you pop for proper DFS
                 visited.add(node) # You should only mark nodes as visited when you actually pop them, not when you push
                 res.append(node)
             for i in reversed(adj[node]): # in [1,2] popped 2 visited first than 1 if not reversed.
-                if i not in visited:
-                    stack.append(i)
+                if i not in visited: 
+                    stack.append(i) # before ading to stack to pop next, first check if its not present in visited.
         return res
-
-
-

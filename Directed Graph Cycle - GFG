@@ -1,0 +1,55 @@
+Directed Graph Cycle
+Difficulty: MediumAccuracy: 27.88%Submissions: 491K+Points: 4
+Given a Directed Graph with V vertices (Numbered from 0 to V-1) and E edges, check whether it contains any cycle or not.
+The graph is represented as a 2D vector edges[][], where each entry edges[i] = [u, v] denotes an edge from verticex u to v.
+
+Examples:
+
+Input: V = 4, edges[][] = [[0, 1], [0, 2], [1, 2], [2, 0], [2, 3]]
+
+Output: true
+Explanation: The diagram clearly shows a cycle 0 → 2 → 0
+Input: V = 4, edges[][] = [[0, 1], [0, 2], [1, 2], [2, 3]
+
+Output: false
+Explanation: no cycle in the graph
+Constraints:
+1 ≤ V, E ≤ 105
+u ≠ v
+
+# ----------------------------------------- SOLUTION --------------------------------------------- #
+
+class Solution:
+    def isCycle(self, V, edges):
+        # INTUITION - This code checks for back edges using the recursion path. The visited[] array makes sure we don’t reprocess nodes, 
+        # and the path[] array helps in tracking the call stack to catch cycles in directed graphs.
+        # time - O(V+E)
+        # space - O(V+E)
+        
+        adj = [[] for _ in range(V)] # O(V+E) space
+        for u, v in edges:
+            adj[u].append(v)
+            # adj[v].append(u) # dont include for directed graph 
+        visited = [False] * V # O(V) space 
+        path = [False] * V #  array keeps track of the recursion stack. # O(V) space
+        # i.e., If we revisit a node that is already in the current recursion path, we found a back edge → cycle
+        
+        def dfs(node):
+            visited[node] = True
+            path[node] = True # node is added to the current recursion stack. This helps us detect cycles via back edges.
+            for neighbour in adj[node]:
+                if not visited[neighbour]:
+                    if dfs(neighbour): # if a cycle is found deeper while performing dfs to neighbours
+                        return True
+                elif path[neighbour]: # If the neighbor has already been visited AND is still in the current path 
+                # Example: In the graph 0 → 1 → 2 → 0, when DFS reaches 2 → 0, since 0 is still in the recursion stack (path[0] = True), we detect a cycle.
+                    return True 
+            path[node] = False # if no cycle was found via this path, we remove the node from the path[] before exiting, because we are done exploring this node.
+            return False # no cycle through this path
+                    
+        for i in range(V):
+            if not visited[i]:
+                if dfs(i):
+                    return True
+        
+        return False

@@ -1,0 +1,54 @@
+Directed Graph Cycle
+Difficulty: MediumAccuracy: 27.88%Submissions: 492K+Points: 4
+Given a Directed Graph with V vertices (Numbered from 0 to V-1) and E edges, check whether it contains any cycle or not.
+The graph is represented as a 2D vector edges[][], where each entry edges[i] = [u, v] denotes an edge from verticex u to v.
+
+Examples:
+
+Input: V = 4, edges[][] = [[0, 1], [0, 2], [1, 2], [2, 0], [2, 3]]
+
+Output: true
+Explanation: The diagram clearly shows a cycle 0 → 2 → 0
+Input: V = 4, edges[][] = [[0, 1], [0, 2], [1, 2], [2, 3]
+
+Output: false
+Explanation: no cycle in the graph
+Constraints:
+1 ≤ V, E ≤ 105
+u ≠ v
+
+
+# ------------------------------------- SOLUTION ------------------------------------------------ #
+
+# ------------- BFS IN-DEGREE KAHN'S ALGORITHM -------------
+        # INTUITION - first convert to adj list, apply indegree concept, then bfs, finally check if count == V or not.
+        # time - O(V+E)
+        # space - O(V+E)
+        
+        adj = [[] for _ in range(V)] # O(V) space for outer list
+        in_deg = [0] * V # O(E) space
+        count = 0  # O(V) space # Count of nodes added to topological order
+        
+        for u,v in edges: # O(E) space for inner list as E > V and finally O(V+E)
+            adj[u].append(v)
+            in_deg[v] += 1 # O(E) time # count how many edges are coming into v or the no of nodes we processed.
+        
+        from collections import deque
+        #  Initialize the queue with nodes having in-degree 0
+        queue = deque() # O(V) space
+        for i in range(V):
+            if in_deg[i] == 0:
+                queue.append(i)
+        while queue:
+            node = queue.popleft()
+            for nei in adj[node]:
+                in_deg[nei] -= 1
+                if in_deg[nei] == 0:
+                    queue.append(nei)
+        
+        if count != V: # all nodes were processed no topo sort is successful which says there's no cycle.
+            return True
+        else: # if count < V all nodes couldn't be processed as there is a cycle
+            return False
+            
+        

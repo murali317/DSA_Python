@@ -26,8 +26,8 @@ u ≠ v
         # space - O(V+E)
         
         adj = [[] for _ in range(V)] # O(V) space for outer list
-        in_deg = [0] * V # O(E) space
-        count = 0  # O(V) space # Count of nodes added to topological order
+        in_deg = [0] * V # O(V) space
+        count = 0  # O(1) space # Count of nodes added to topological order
         
         for u,v in edges: # O(E) space for inner list as E > V and finally O(V+E)
             adj[u].append(v)
@@ -36,11 +36,12 @@ u ≠ v
         from collections import deque
         #  Initialize the queue with nodes having in-degree 0
         queue = deque() # O(V) space
-        for i in range(V):
+        for i in range(V): # O(V) space
             if in_deg[i] == 0:
                 queue.append(i)
         while queue:
             node = queue.popleft()
+            count += 1
             for nei in adj[node]:
                 in_deg[nei] -= 1
                 if in_deg[nei] == 0:

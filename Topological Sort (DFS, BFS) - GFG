@@ -1,0 +1,87 @@
+Topological sort
+Difficulty: Medium Accuracy: 56.52% Submissions: 295K+ Points: 4 Average-Time: 15m
+Given a Directed Acyclic Graph (DAG) of V (0 to V-1) vertices and E edges represented as a 2D list of edges[][], where each entry edges[i] = [u, v] denotes a directed edge u -> v. Return the topological sort for the given graph.
+
+Topological sorting for Directed Acyclic Graph (DAG) is a linear ordering of vertices such that for every directed edge u -> v, vertex u comes before v in the ordering.
+Note: As there are multiple Topological orders possible, you may return any of them. If your returned Topological sort is correct then the output will be true else false.
+
+Examples:
+
+Input: V = 4, E = 3, edges[][] = [[3, 0], [1, 0], [2, 0]]
+
+Output: true
+Explanation: The output true denotes that the order is valid. Few valid Topological orders for the given graph are:
+[3, 2, 1, 0]
+[1, 2, 3, 0]
+[2, 3, 1, 0]
+Input: V = 6, E = 6, edges[][] = [[1, 3], [2, 3], [4, 1], [4, 0], [5, 0], [5,2]]
+
+Output: true
+Explanation: The output true denotes that the order is valid. Few valid Topological orders for the graph are:
+[4, 5, 0, 1, 2, 3]
+[5, 2, 4, 0, 1, 3]
+Constraints:
+2  ≤  V  ≤  103
+1  ≤  E = edges.size()  ≤  (V * (V - 1)) / 2
+
+
+# ------------------------------------------------- SOLUTION ------------------------------------------------ #
+
+class Solution:
+    
+    def topoSort(self, V, edges):
+        #  ---------------------- USING DFS ----------------------
+        # INTUITION - Same as DFS, for each unvisited nodes/vertices and its neighbours, 
+        # we have to perform DFS, store the topo sorted list and return its reversed order.
+        # time - O(V+E) - Each vertex is visited once → O(V), Each edge is explored once during DFS → O(E)
+        # space - O(V+E)
+        
+        stack = []
+        visited = [False] * V
+        adj = [[] for _ in range(V)]
+        
+        for u,v in edges: # O(E) time
+            adj[u].append(v) # O(V+E) space
+        
+        def dfs(node):
+            visited[node] = True
+            for nei in adj[node]:
+                if not visited[nei]:
+                    dfs(nei) 
+            stack.append(node) # append after processing all neighbors
+                
+        for i in range(V):
+            if not visited[i]:
+                dfs(i) # W.C is O(V)
+        
+        return stack[::-1]
+        
+        # --------------------- USING BFS ------------------
+        # time - O(V+E)
+        # space - O(V+E)
+        
+        from collections import deque
+        queue = deque()
+        in_deg = [0] * V
+        adj = [[] for _ in range(V)]
+        topo_order = []
+        
+        for u,v in edges:
+            adj[u].append(v)
+            in_deg[v] += 1
+        
+        # push node with in_deg 0 into the queue
+        for i in range(V):
+            if in_deg[i] == 0:
+                queue.append(i) 
+        
+        while queue:
+            node = queue.popleft()
+            topo_order.append(node)
+            for nei in adj[node]:
+                in_deg[nei] -= 1
+                if in_deg[nei] == 0:
+                    queue.append(nei)
+                    
+        return topo_order if len(topo_order) == V else []
+        

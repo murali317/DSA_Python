@@ -8,6 +8,8 @@ class Solution:
 
         
 # We can use 2 pointer technique but it runs in O(N LOG N) time to first sort the array (as it is not) and would mess up with the original indices. but we can still do it if we want to like below:
+        # time - O(n log n)
+        # space - O(n)
 
         # indexed = [(j, i) for i, j in enumerate(nums)] # store index, value pairs.
         # indexed.sort() # now sort the indexed
@@ -24,22 +26,12 @@ class Solution:
 
 # -----------------------------------------------------
         # time - O(N) - most optimised solution using HASHMAP
-        # spacee - O(n)
-        hashmap = {}
+        # space - O(n)
+        hashmap = defaultdict(int)
         for i,j in enumerate(nums):
             comp = target - j
             if comp in hashmap: # wont get key error since it checks if the key comp exists in the dictionary before accessing it with hashmap[comp]
                 return [hashmap[comp],i]
             hashmap[j] = i
-
-
-
-
-
-
-
-
-
-
 
 

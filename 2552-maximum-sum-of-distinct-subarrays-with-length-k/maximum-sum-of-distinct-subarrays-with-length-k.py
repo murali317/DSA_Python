@@ -3,21 +3,21 @@ class Solution:
         # time - O(n)
         # space - O(k) not O(n) because set is storing at most k unique elements, not all n
         # if the size grows till the length of array, the might be O(n) which is not the case in this problem.
-        l,s_sum,max_sum = 0,0,float(-inf)
-        s = set()
-        for r in range(len(nums)):
-            while nums[r] in s: # have to remove until that duplicate is present and not O(n^2) since it just moves foward and doesn't reprocess old elements. - amortized
-                s.remove(nums[l]) # O(1)
-                s_sum -= nums[l]
-                l += 1
-            s.add(nums[r]) # O(1)
-            s_sum += nums[r]
-            if r-l+1 == k:
-                max_sum = max(max_sum, s_sum)
-                s.remove(nums[l])
-                s_sum -= nums[l]
-                l += 1
-        return max_sum if max_sum != float(-inf) else 0
+        # l,s_sum,max_sum = 0,0,float(-inf)
+        # s = set()
+        # for r in range(len(nums)):
+        #     while nums[r] in s: # have to remove until that duplicate is present and not O(n^2) since it just moves foward and doesn't reprocess old elements. - amortized
+        #         s.remove(nums[l]) # O(1)
+        #         s_sum -= nums[l]
+        #         l += 1
+        #     s.add(nums[r]) # O(1)
+        #     s_sum += nums[r]
+        #     if r-l+1 == k:
+        #         max_sum = max(max_sum, s_sum)
+        #         s.remove(nums[l])
+        #         s_sum -= nums[l]
+        #         l += 1
+        # return max_sum if max_sum != float(-inf) else 0
 
         # time - O(n)
         # space - O(k)

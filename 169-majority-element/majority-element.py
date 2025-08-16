@@ -20,9 +20,13 @@ class Solution:
 
         # BOYER - MOORE ALGORITHM ☠️\U0001f635
         # time - O(n) space - O(1) 
-        res, count = 0, 0
-        for i in nums:
-            if count == 0:
-                res = i
-            count += (1 if i == res else -1)
-        return res
+        
+        # res, count = 0, 0
+        # for i in nums:
+        #     if count == 0:
+        #         res = i
+        #     count += (1 if i == res else -1)
+        # return res
+
+        nums.sort()
+        return nums[len(nums)//2]

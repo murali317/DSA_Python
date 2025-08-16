@@ -18,15 +18,12 @@ class Solution:
         # nums.sort()
         # return nums[len(nums)//2] # O(1) space for indexing
 
-        # BOYER - MOORE ALGORITHM ☠️\U0001f635
+        # BOYER - MOORE ALGORITHM ☠️\U0001f635 - Increase the count if cur element == res. Otehrwise decrement the count. When c == 0, it means that curr element is having more frequency as it made previous element's frequency (count) zero.
         # time - O(n) space - O(1) 
         
-        # res, count = 0, 0
-        # for i in nums:
-        #     if count == 0:
-        #         res = i
-        #     count += (1 if i == res else -1)
-        # return res
-
-        nums.sort()
-        return nums[len(nums)//2]
+        res, count = 0, 0
+        for i in nums:
+            if count == 0:
+                res = i
+            count += (1 if i == res else -1)
+        return res

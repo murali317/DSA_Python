@@ -22,8 +22,8 @@ class Solution:
         min_heap = [] # using a min_heap of size k
         for i in nums: d[i] += 1 # counting the freqs
         for ele, freq in d.items(): 
-            heapq.heappush(min_heap, (freq, ele)) # heap by freq
+            heapq.heappush(min_heap, (freq, ele)) # heap by freq i.e., [(1,3), (2,2), (3,1)]
             if len(min_heap) > k: # should not exceed size k(so remove least frequent elements)
                 heapq.heappop(min_heap) # remove least frequent
         return [ele for freq, ele in min_heap] # since its a list of tuples [(freq, ele)]
-        
+ 

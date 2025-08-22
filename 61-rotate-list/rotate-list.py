@@ -40,7 +40,7 @@ class Solution:
             slow = slow.next
         new_head = slow.next
         slow.next = None
-        tail.next = head
+        tail.next = head # we got this while tracking length. tail is at last node now.
         return new_head
 
          

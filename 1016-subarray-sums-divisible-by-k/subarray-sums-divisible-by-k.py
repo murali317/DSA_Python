@@ -8,8 +8,8 @@ class Solution:
         hash = {0:1}
         for i in nums:
             total += i
-            m = (total % k + k) % k # to hanlde -ve numbers
+            m = total % k # to hanlde -ve numbers
             if m in hash:
-                count += hash.get(m, 0) # similar to hash[m] += 1 but its a safe lookup.
+                count += hash.get(m, 0) # similar to count += hash[m] but its a safe lookup.
             hash[m] = hash.get(m, 0) + 1
         return count

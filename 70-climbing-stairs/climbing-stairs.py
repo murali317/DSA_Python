@@ -3,9 +3,18 @@ class Solution:
         # INTUITION - If you are at step i, you could have come from step i-1 by taking 1 step, or from step i-2 by taking 2 steps. i.e., ways(i) = ways(i-1) + ways(i-2)
         # time - O(n)
         # space - O(n)
-        dp = [0] * (n + 1)
-        dp[0] = 1 # There's one way to stay at step 0 (do nothing)
-        dp[1] = 1 # There's one way to reach step 1 (one 1-step move/single step)
-        for i in range(2, n + 1):
-            dp[i] = dp[i-1] + dp[i-2]
-        return dp[-1]
+        # dp = [0] * (n + 1)
+        # dp[0] = 1 # There's one way to stay at step 0 (do nothing)
+        # dp[1] = 1 # There's one way to reach step 1 (one 1-step move/single step)
+        # for i in range(2, n + 1):
+        #     dp[i] = dp[i-1] + dp[i-2]
+        # return dp[-1]
+
+        # Space - Optimized approach
+        # time - O(n)
+        # space - O(1)
+        prev2, prev1 = 1, 1
+        for i in range(2, n+1):
+            curr = prev2 + prev1
+            prev2, prev1 = prev1, curr
+        return prev1 # cant access curr outside its scope

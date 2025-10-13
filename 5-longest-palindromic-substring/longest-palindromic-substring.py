@@ -1,6 +1,6 @@
 class Solution:
     def longestPalindrome(self, s: str) -> str:
-        # expand around center approach
+        #INTUITION - Expand around center approach - check for both odd-length & even-length palindromes. While checking compare the length of those and return the longest one.
         # time - O(n^2) space - O(1) since constant space not additional data structures
         # Since we check O(n) centers, and each takes at most O(n) time, so O(n^2)
 
@@ -20,7 +20,7 @@ class Solution:
         #         longest = even_pal
         # return longest
 
-        # ANOTHER WAY - WITHOUT A HELPER FUNCTION
+        # ANOTHER WAY - WITHOUT A HELPER FUNCTION ----------------------
         # time - O(n^2)
         # space - O(1) - 2 variables & 2 pointers
         res = ''
@@ -29,7 +29,7 @@ class Solution:
             # Odd-lenth palindrome
             l, r = i, i
             while l >=0 and r < len(s) and s[l] == s[r]: # O(n) in W.C if entire string is palindrome
-                if r - l + 1 > res_len:
+                if r - l + 1 > res_len: # to check if current pal_string is longer than previous 
                     res = s[l:r + 1]
                     res_len = r - l + 1
                 l -= 1 # expanding backward from center (cur element)

@@ -14,21 +14,38 @@ class Solution:
         # time - O(m + n) - single pass through both arrays, any element is not revisited.
         # space - O(1)
 
-        i = m - 1
-        j = n - 1
-        k = m + n - 1
-        while i >= 0 and j >= 0: # does up to m + n iterations # but if there would be a nested loop inside this, it could lead to O(m*n)
-            if nums2[j] > nums1[i]:
-                nums1[k] = nums2[j]
-                j -= 1
+        # i = m - 1
+        # j = n - 1
+        # k = m + n - 1
+        # while i >= 0 and j >= 0: # does up to m + n iterations # but if there would be a nested loop inside this, it could lead to O(m*n)
+        #     if nums2[j] > nums1[i]:
+        #         nums1[k] = nums2[j]
+        #         j -= 1
+        #     else:
+        #         nums1[k] = nums1[i]
+        #         i -= 1
+        #     k -= 1  # 🔑 move the pointer for merged array!
+
+        # while j >= 0:
+        #     nums1[k] = nums2[j]
+        #     j -= 1
+        #     k -= 1
+
+    # SIMILAR CODE TO ABOVE WITH LESS EXTRA POINTERS
+
+        last = m+n-1
+        while m > 0 and n > 0: # check only while elements in both lists are present
+            if nums1[m-1] > nums2[n-1]:
+                nums1[last] = nums1[m-1]
+                m -= 1
             else:
-                nums1[k] = nums1[i]
-                i -= 1
-            k -= 1  # \U0001f511 move the pointer for merged array!
-
-        while j >= 0:
-            nums1[k] = nums2[j]
-            j -= 1
-            k -= 1
-
+                nums1[last] = nums2[n-1]
+                n -= 1
+            last -= 1
         
+        while n > 0: # an edge case - what if there are still some elements left in nums2 without compared with nums1!!! we will add that series of elements one by one to nums1
+            nums1[last] = nums2[n-1]
+            n -= 1
+            last -= 1
+        
+

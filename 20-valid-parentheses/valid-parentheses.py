@@ -14,6 +14,25 @@ class Solution:
             else:
                 stack.append(i) # appending the opening brackets.
         return not stack # if empty is stack means we have processed all the open brackets so True. Otherwise False
+
+        # ALTERNATE APPROACH ------------
+        hash = {')': '(', ']': '[', '}': '{'}
+        a = []
+
+        if len(s) == 1:
+            return False
+        
+        if s[0] in hash:
+            return False
+
+        for i in s:
+            if i not in hash:
+                a.append(i)
+            elif not a:
+                return False
+            elif a and hash[i] != a.pop():
+                return False
+        return True if not a else False
                 
             
 

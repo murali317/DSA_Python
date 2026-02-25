@@ -22,6 +22,7 @@ Welcome to my personal repository where I solve and document **Data Structures &
 
 ## 📫 Connect With Me
 
+- [Email](mailto:murali.k.devarakonda@gmail.com)
 - [LinkedIn](https://www.linkedin.com/in/murali317/)
+- [YouTube](https://www.youtube.com/@TheIndianWebbie)
 - [Portfolio](https://krissh-portfolio.netlify.app/)
-- [Email](mailto:muralidevarakonda317@gmail.com)

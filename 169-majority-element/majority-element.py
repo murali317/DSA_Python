@@ -25,12 +25,29 @@ class Solution:
         # for i in nums:
         #     if count == 0:
         #         res = i
-        #     count += (1 if i == res else -1)
+        #     count += (1 if i == res else -1) # 1, 0, 1
         # return res
 
-        hash = defaultdict(int)
-        for i in nums:
-            hash[i] += 1
-            if hash[i] > len(nums)//2:
-                return i
-            
+
+        nums.sort()
+        return nums[len(nums)//2]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

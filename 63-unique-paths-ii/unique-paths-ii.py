@@ -17,10 +17,10 @@ class Solution:
         # Start position is 1 assuming no obstacle there
         dp[0][0] = 1
 
-        for i in range(1, n): 
+        for i in range(1, n): # filling 1st row
             if obstacleGrid[0][i] == 1:
                 break # no going further, break the loop and continue with next one
-            dp[0][i] = dp[0][i-1] # this skips the start position
+            dp[0][i] = dp[0][i-1] # should not do dp[0][i] = 1 as we should not consider even going that way. block that entire path from where you see an obstacle. so this line says that when an obstacle is there, break and for next iteration (next blocks), we'll be left with zeroes which are already filled. Imagine a stone in dp[0][1] & filling dp[0][2]... that's why to take prev block's reference, we started with first block as 1.
         for i in range(1, m): 
             if obstacleGrid[i][0] == 1:
                 break
@@ -29,7 +29,7 @@ class Solution:
         for i in range(1, m):
             for j in range(1, n):
                 if obstacleGrid[i][j] == 1:
-                    dp[i][j] = 0 # No paths through obstacles
+                    dp[i][j] = 0 # No paths through obstacles, so next time for next block when we're adding sum of top & prev, this would be 0.
                 else:
                     dp[i][j] = dp[i-1][j] + dp[i][j-1]
         

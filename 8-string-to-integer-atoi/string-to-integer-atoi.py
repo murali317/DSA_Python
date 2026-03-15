@@ -4,13 +4,15 @@ class Solution:
         # time - O(n)
         # space - O(1)
         
-        s = s.lstrip() # trimming the leading spaces
+        s = s.lstrip() # trimming the leading spaces - O(n) time
         sign = 1 # going to change depending on + or -
         i = 0
-        if i < len(s) and s[i] == '+':
+        if len(s) == 0:
+            return 0
+        if s[0]=='+': 
             i += 1 # just move forward
-        elif i < len(s) and s[i] == '-':
-            sign = -1 # we'll multiple the result with this later.
+        elif s[0] == '-':
+            sign = -1 # we'll multiply the result with this later.
             i += 1
         
         parsed = 0
@@ -24,7 +26,7 @@ class Solution:
         parsed *= sign
         if parsed < -2**31:
             return -2**31
-        elif parsed >= 2**31 - 1:
+        elif parsed > 2**31 - 1:
             return 2**31 - 1
         else:
             return parsed

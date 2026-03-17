@@ -1,0 +1,50 @@
+-------------------------------------- QUESTION --------------------------------------
+Subset Sum Problem
+Difficulty: MediumAccuracy: 32.0%Submissions: 443K+Points: 4
+Given an array of positive integers arr[] and a value sum, determine if there is a subset of arr[] with sum equal to given sum. 
+
+Examples:--------------
+Input: arr[] = [3, 34, 4, 12, 5, 2], sum = 9
+Output: true 
+Explanation: Here there exists a subset with target sum = 9, 4+3+2 = 9.
+
+Input: arr[] = [3, 34, 4, 12, 5, 2], sum = 30
+Output: false
+Explanation: There is no subset with target sum 30.
+
+Input: arr[] = [1, 2, 3], sum = 6
+Output: true
+Explanation: The entire array can be taken as a subset, giving 1 + 2 + 3 = 6.
+
+Constraints:
+1 <= arr.size() <= 200
+1<= arr[i] <= 200
+1<= sum <= 104
+
+-------------------------------------- SOLUTION --------------------------------------
+class Solution:
+    def isSubsetSum (self, arr, sum):
+        # DON'T GO WITH BRUTE FORCE AS IT IS O(2^n), INSTEAD -
+        # -----------------------------------------------------
+        
+        #time - O(n*sum)
+        # space - O(n*sum)
+        n = len(arr)
+        
+        dp = [[0]*(sum+1) for i in range(n+1)]
+        
+        for i in range(n+1): # base case, an empty subset can sum upto 0 if sum = 0
+                dp[i][0] = 1 # so there's 1 sub result so filling this col with 1 for all arr values/rows
+                
+        for i in range(1, n+1):
+            for j in range(1, sum+1):
+                if arr[i-1] > j: # if element > j, don't take it
+                    dp[i][j] = dp[i-1][j] # so copy already computed prev rows
+            # At every cell dp[i][j], ask: “Using first i elements, can I make sum j?” 
+                # if element can be used, 2 choices
+                # Dont take/copy prev rows -> dp[i-1][j]
+                # Take it -> dp[i-1][j-arr[i-1]]
+                else:
+                    dp[i][j] = dp[i-1][j] or dp[i-1][j-arr[i-1]]
+        
+        return dp[n][sum]

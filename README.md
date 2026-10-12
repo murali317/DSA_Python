@@ -26,3 +26,19 @@ Welcome to my personal repository where I solve and document **Data Structures &
 - [LinkedIn](https://www.linkedin.com/in/murali317/)
 - [YouTube](https://www.youtube.com/@TheIndianWebbie)
 - [Portfolio](https://krissh-portfolio.netlify.app/)
+
+<!---LeetCode Topics Start-->
+# LeetCode Topics
+## Hash Table
+|  |
+| ------- |
+| [0409-longest-palindrome](https://github.com/murali317/DSA_Python/tree/master/0409-longest-palindrome) |
+## String
+|  |
+| ------- |
+| [0409-longest-palindrome](https://github.com/murali317/DSA_Python/tree/master/0409-longest-palindrome) |
+## Greedy
+|  |
+| ------- |
+| [0409-longest-palindrome](https://github.com/murali317/DSA_Python/tree/master/0409-longest-palindrome) |
+<!---LeetCode Topics End-->
